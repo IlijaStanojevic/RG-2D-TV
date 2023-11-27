@@ -5,7 +5,7 @@
 
 #define CRES 50
 #define HEIGHT 1280.0f
-#define WIDTH 720.0f
+#define WIDTH 1080.0f
 #define FULLSCREEN false
 
 #include <iostream>
@@ -172,7 +172,7 @@ int main(void)
 
 
 
-    unsigned VAO[9]; //0 = TV border, 1= button, 2= dot circle, 3= clock circle,4= clock needle, 5= marka texture, 6= p1, 7= p2, 8= index
+    unsigned VAO[9]; //0 = TV border, 1= button, 2= dot circle, 3= clock circle,4= clock needle, 5= marka texture, 6= luigi(p2), 7= mario(p1), 8= index gore levo
     glGenVertexArrays(9, VAO);
     unsigned VBO[9];
     glGenBuffers(9, VBO);
@@ -388,7 +388,7 @@ int main(void)
             glClearColor(1.0, 1.0, 1.0, 1.0); // White background
         }
         else {
-            glClearColor(0.0, 0.0, 0.0, 1.0);
+            glClearColor(0.0, 0.0, 0.0, 1.0); // Black background
         }
 
         glUseProgram(playerShader);
@@ -398,14 +398,14 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT);
 
         glUseProgram(basicShader);
-        glBindVertexArray(VAO[0]); // Okvir TV-a
+        glBindVertexArray(VAO[0]); // Border TV-a
         glDrawArrays(GL_TRIANGLE_STRIP, 0, sizeof(stripVertices) / stripStride);
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glUseProgram(textureShader);
         glBindVertexArray(VAO[5]);
-        glActiveTexture(GL_TEXTURE0); // Ime prezime index textura
+        glActiveTexture(GL_TEXTURE0); // Ime prezime index marka textura
         glBindTexture(GL_TEXTURE_2D, indexTexture);
         glDrawArrays(GL_TRIANGLES, 0, 6);
         glBindTexture(GL_TEXTURE_2D, 0);
@@ -415,7 +415,7 @@ int main(void)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glUseProgram(textureShader);
         glBindVertexArray(VAO[8]);
-        glActiveTexture(GL_TEXTURE0); // Ime prezime index textura
+        glActiveTexture(GL_TEXTURE0); // Ime prezime index gore desno textura
         glBindTexture(GL_TEXTURE_2D, indexTexture);
         glDrawArrays(GL_TRIANGLES, 0, 6);
         glBindTexture(GL_TEXTURE_2D, 0);
@@ -425,7 +425,7 @@ int main(void)
         {
             glUseProgram(buttonShader);
             glBindVertexArray(VAO[1]);
-            glUniform3f(glGetUniformLocation(buttonShader, "staticColor"), 1.0f, 0.0f, 1.0f);
+            glUniform3f(glGetUniformLocation(buttonShader, "staticColor"), 1.0f, 0.0f, 1.0f); // static pink dugme
             glDrawArrays(GL_TRIANGLE_FAN, 0, sizeof(button) / (2 * sizeof(float)));
             if (currentChannel == 1) {
                 glUseProgram(basicShader);
@@ -461,7 +461,7 @@ int main(void)
                 glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
                 glEnable(GL_PROGRAM_POINT_SIZE);
                 glBindVertexArray(VAO[2]);
-                glPointSize(7.0f);
+                glPointSize(7.0f); // triangle point size forming a circle
                 glDrawArrays(GL_TRIANGLES, 0, sizeof(dotCircle) / (2 * sizeof(float)));
                 glDisable(GL_PROGRAM_POINT_SIZE);
                 glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -472,7 +472,7 @@ int main(void)
                 glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
                 glUseProgram(playerShader);
                 glBindVertexArray(VAO[7]);
-                glActiveTexture(GL_TEXTURE0); // Ime prezime index textura
+                glActiveTexture(GL_TEXTURE0); // mario textura
                 glBindTexture(GL_TEXTURE_2D, marioTexture);
                 glUniform1i(uTexLoc, 0);
                 glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -483,7 +483,7 @@ int main(void)
                 glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
                 glUseProgram(playerShader);
                 glBindVertexArray(VAO[6]);
-                glActiveTexture(GL_TEXTURE0); // Ime prezime index textura
+                glActiveTexture(GL_TEXTURE0); // luigi textura
                 glBindTexture(GL_TEXTURE_2D, luigiTexture);
                 glUniform1i(uTexLoc, 0);
                 glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -496,11 +496,11 @@ int main(void)
         {
 
             glUseProgram(buttonShader);
-            glUniform3f(glGetUniformLocation(buttonShader, "staticColor"), 0.0f, 0.0f, 0.0f);
+            glUniform3f(glGetUniformLocation(buttonShader, "staticColor"), 0.0f, 0.0f, 0.0f); // reset static color
             glBindVertexArray(VAO[1]);
             glUniform1f(glGetUniformLocation(buttonShader, "time"), glfwGetTime());
             glUniform3f(glGetUniformLocation(buttonShader, "pulsatingColor"), rgb, rgb, rgb);
-            glDrawArrays(GL_TRIANGLE_FAN, 0, sizeof(button) / (2 * sizeof(float)));
+            glDrawArrays(GL_TRIANGLE_FAN, 0, sizeof(button) / (2 * sizeof(float))); // pulsirajuce crno belo dugme
         }
 
 

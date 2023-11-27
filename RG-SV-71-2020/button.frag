@@ -3,7 +3,7 @@
 in vec3 fragColor;
 out vec4 FragColor;
 uniform vec3 pulsatingColor;
-uniform vec3 staticColor;  // Add this uniform for static pink color
+uniform vec3 staticColor; 
 
 void main()
 {

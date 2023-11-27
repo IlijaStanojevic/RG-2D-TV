@@ -9,7 +9,7 @@ uniform float p2x; // player 2 position
 
 void main()
 {
-    // Adjust the position based on p1x and p2x
+    // Adjust the position based on p1x or p2x depending on x
     gl_Position = vec4(inPos.x + (inPos.x > 0.0 ? p1x : p2x), inPos.y, 0.0, 1.0);
 
     chTex = inTex;
