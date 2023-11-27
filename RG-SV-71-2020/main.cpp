@@ -5,7 +5,7 @@
 
 #define CRES 50
 #define HEIGHT 1280.0f
-#define WIDTH 1080.0f
+#define WIDTH 720.0f
 #define FULLSCREEN false
 
 #include <iostream>
